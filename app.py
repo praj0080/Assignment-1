@@ -5,13 +5,13 @@ from datetime import datetime
 import os
 import logging
 
-# ✅ Load environment variables from .env
+# ✅ Load environment variables from .env or Azure app settings
 load_dotenv()
 
-app = Flask(_name_)
+app = Flask(__name__)
 app.secret_key = os.getenv("FLASK_SECRET_KEY")
 
-# ✅ Recommended session cookie settings for production (required for Azure HTTPS)
+# ✅ Recommended session settings for production (HTTPS in Azure)
 app.config.update(
     SESSION_COOKIE_NAME='flask_session',
     SESSION_COOKIE_DOMAIN=None,
@@ -19,19 +19,17 @@ app.config.update(
     SESSION_COOKIE_SECURE=True
 )
 
-# ✅ Configure structured logging
+# ✅ Structured logging for audit/security tracking
 logging.basicConfig(level=logging.INFO)
 
-# ✅ OAuth setup for Auth0
+# ✅ OAuth configuration for Auth0
 oauth = OAuth(app)
 auth0 = oauth.register(
     'auth0',
     client_id=os.getenv('AUTH0_CLIENT_ID'),
     client_secret=os.getenv('AUTH0_CLIENT_SECRET'),
-    client_kwargs={
-        'scope': 'openid profile email',
-    },
-    server_metadata_url=f'https://{os.getenv("AUTH0_DOMAIN")}/.well-known/openid-configuration',
+    client_kwargs={'scope': 'openid profile email'},
+    server_metadata_url=f'https://{os.getenv("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
 # ✅ Routes
@@ -53,7 +51,6 @@ def callback():
     userinfo = token.get('userinfo')
     session['user'] = userinfo
 
-    # ✅ Log successful login
     app.logger.info(
         f"LOGIN_SUCCESS: user_id={userinfo.get('sub')}, email={userinfo.get('email')}, timestamp={datetime.utcnow().isoformat()}"
     )
@@ -98,5 +95,6 @@ def unauthorized_error(e):
     return "Unauthorized", 401
 
 
-if _name_ == '_main_':
+# ✅ Required for running locally or via Azure App Service
+if __name__ == '__main__':
     app.run(debug=False)
