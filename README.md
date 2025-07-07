@@ -30,11 +30,14 @@ In this project we will display a secure Flask web application based on Auth0 au
 Create a `.env` file in the root of your Flask app with:
 
 ```env
-AUTH0_CLIENT_ID=your_auth0_client_id
-AUTH0_CLIENT_SECRET=your_auth0_client_secret
-AUTH0_DOMAIN=your_auth0_domain
-AUTH0_CALLBACK_URL=https://flask-auth0-app.azurewebsites.net/callback
-APP_SECRET_KEY=your_flask_secret_key
+AUTH0_CLIENT_ID=1iJfZId8CsZgUtcTdBCKk14BMiS40dSg
+AUTH0_CLIENT_SECRET=F3HYVzCMMhA5Vzd_QxvJAATPPnYBOJDQJcsAlkFUAHkJ06SDuqi3LvQePS2plFcJ
+AUTH0_DOMAIN=dev-65yuhxtq0n6jvmfd.ca.auth0.com
+AUTH0_CALLBACK_URL=http://flask-auth0-app.azurewebsites.net/callback
+AUTH0_AUDIENCE=https://dev-65yuhxtq0n6jvmfd.ca.auth0.com/userinfo
+FLASK_APP=app.py
+FLASK_DEBUG=False
+FLASK_SECRET_KEY=2e390fb7c7eefab74edfa19f89648e16051f9b27a70d485e0cbba182ec15d566
 ```
 
 You can generate a secret key with:
