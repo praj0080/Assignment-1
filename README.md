@@ -9,7 +9,7 @@ In this project we will display a secure Flask web application based on Auth0 au
 ### 1. Auth0 Setup
 
 1. Go to [Auth0 Dashboard](https://flask-auth0-app.azurewebsites.net/dashboard)
-2.Make a new **Regular Web Application**
+2. Make a new **Regular Web Application**
 3. On the tab **Settings**:
 - Enter your own callback URL (i.e. `https://flask-auth0-app.azurewebsites.net/callback`)
 - Add your logout URL (`https://flask-auth0-app.azurewebsites.net`)
